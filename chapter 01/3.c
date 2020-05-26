@@ -15,9 +15,3 @@ void URLify(char str[], int len) {
         curChar--;
     }
 }
-
-int main() {//todo
-    char str[18] = "Mr John Smith    ";
-    URLify(str, 13);
-    printf("%s", str);
-}
