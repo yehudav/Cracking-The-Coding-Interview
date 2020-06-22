@@ -1,36 +1,44 @@
 #include <string>
 #include <unordered_map>
-#include <assert.h>
+#include <cassert>
 
 // definitions
 
 typedef std::unordered_map<char, int> hash;
 
-void createMapIgnoreWhiteSpaces(const std::string &str, hash &map);
+void createLowerCaseMapIgnoreWhiteSpaces(const std::string &str, hash &map);
 
-bool isNumOfOddCharsBelowOne(hash &map);
+char lower(char c);
 
+bool isNumOfOddCharsBelowTwo(hash &map);
 
-//functions todo converto to lower case
 
 bool isPalindromePermutation(const std::string &str) {
     hash map;
-    createMapIgnoreWhiteSpaces(str, map);
-    return isNumOfOddCharsBelowOne(map);
+    createLowerCaseMapIgnoreWhiteSpaces(str, map);
+    return isNumOfOddCharsBelowTwo(map);
 
 }
 
-void createMapIgnoreWhiteSpaces(const std::string &str, hash &map) {
+void createLowerCaseMapIgnoreWhiteSpaces(const std::string &str, hash &map) {
     for (auto c : str) {
-        if (map.find(c) == map.end() && c != ' ') {
-            map[c] = 1;
+        char lowerC = lower(c);
+        if (map.find(lowerC) == map.end() && !isspace(lowerC)) {
+            map[lowerC] = 1;
         } else {
-            map[c]++;
+            map[lowerC]++;
         }
     }
 }
 
-bool isNumOfOddCharsBelowOne(hash &map) {
+char lower(char c) {
+    if (c >= 65 && c <= 90) {
+        c += 32;
+    }
+    return c;
+}
+
+bool isNumOfOddCharsBelowTwo(hash &map) {
     bool oddCharNum = false;
     for (auto &it : map) {
         if (it.second % 2 == 1) {
@@ -44,15 +52,5 @@ bool isNumOfOddCharsBelowOne(hash &map) {
 }
 
 int main() {
-    assert(isPalindromePermutation("aab"));
-    assert(isPalindromePermutation("aabb"));
-    assert(!isPalindromePermutation("ab"));
-    assert(isPalindromePermutation("a"));
-    assert(isPalindromePermutation("aA"));
-    assert(isPalindromePermutation("AA"));
-    assert(isPalindromePermutation("aBa"));
-    assert(!isPalindromePermutation("aaabbbc"));
-    assert(isPalindromePermutation("aaaabbbcc"));
-    assert(isPalindromePermutation(""));
-    assert(isPalindromePermutation("Tact Coa"));
+    assert(isPalindromePermutation("Tact coa")); //todo check why fails with space
 }
