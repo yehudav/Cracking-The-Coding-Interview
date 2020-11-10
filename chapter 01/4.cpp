@@ -52,5 +52,5 @@ bool isNumOfOddCharsBelowTwo(hash &map) {
 }
 
 int main() {
-    assert(isPalindromePermutation("Tact coa")); //todo check why fails with space
+    assert(isPalindromePermutation("Tact coa")); //todo check why fails with  space
 }
